@@ -1,2 +1,3 @@
 # react-navigation-in-native
-Created with CodeSandbox
+
+live app - https://csb-32zul.netlify.app/
