@@ -1,67 +1,38 @@
 import * as React from "react";
-import { Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { HomeScreen, ProfileScreen, Contact } from "./comp";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { Button, View } from "react-native";
 
-const Stack = createStackNavigator();
+function Home({ navigation }) {
+  navigation.openDrawer();
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Button
+        onPress={() => navigation.navigate("Notifications")}
+        title="Go to notifications"
+      />
+    </View>
+  );
+}
 
-const App = ({ navigation }) => {
+function Notification({ navigation }) {
+  navigation.openDrawer();
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Button onPress={() => navigation.goBack()} title="Go back home" />
+    </View>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: "#f4511e"
-          },
-          headerTintColor: "#000",
-          headerTitleStyle: {
-            fontWeight: "bold",
-            color: "white",
-            textAlign: "center"
-          }
-        }}
-      >
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            title: "My home",
-            headerRight: () => (
-              <Button
-                onPress={() => alert("This is a Info. button!")}
-                title="Info"
-                color="#000"
-                style={{ marginRight: 10 }}
-              />
-            )
-          }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            title: "Profile",
-            headerLeft: () => (
-              <Button
-                onPress={() => alert("press back button")}
-                title="Back"
-                color="#000"
-                style={{ marginRight: 10 }}
-              />
-            )
-          }}
-        />
-        <Stack.Screen
-          name="Contact"
-          component={Contact}
-          options={{
-            title: "Contact"
-          }}
-        />
-      </Stack.Navigator>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen name="Notifications" component={Notification} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
-};
-
-export default App;
+}
