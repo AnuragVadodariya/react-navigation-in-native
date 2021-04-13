@@ -6,7 +6,7 @@ import { HomeScreen, ProfileScreen, Contact } from "./comp";
 
 const Stack = createStackNavigator();
 
-const App = () => {
+const App = ({ navigation }) => {
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -41,7 +41,15 @@ const App = () => {
           name="Profile"
           component={ProfileScreen}
           options={{
-            title: "Profile"
+            title: "Profile",
+            headerLeft: () => (
+              <Button
+                onPress={() => alert("press back button")}
+                title="Back"
+                color="#000"
+                style={{ marginRight: 10 }}
+              />
+            )
           }}
         />
         <Stack.Screen
